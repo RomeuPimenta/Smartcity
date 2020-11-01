@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Smartcity</string>
+    <string name="add_note">Adicionar Nota</string>
+    <string name="titulo">Titulo</string>
+    <string name="subtitulo">SubTitulo</string>
+    <string name="nota">Nota</string>
+    <string name="adicionar">Adicionar</string>
+    <string name="mensagemErro">Não foi inserida nenhuma nota</string>
+</resources>
