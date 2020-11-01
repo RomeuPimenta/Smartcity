@@ -41,3 +41,5 @@ class NotaAdapter internal constructor (
 
     override fun getItemCount() = notas.size
 }
+
+//teste
