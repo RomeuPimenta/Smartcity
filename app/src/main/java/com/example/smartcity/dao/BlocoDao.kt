@@ -22,4 +22,7 @@ interface BlocoDao {
 
     @Update
     fun update(nota: Nota)
+
+    @Delete
+    fun delete(nota: Nota)
 }

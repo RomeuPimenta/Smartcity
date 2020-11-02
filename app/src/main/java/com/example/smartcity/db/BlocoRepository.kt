@@ -16,4 +16,8 @@ class BlocoRepository(private val blocoDao: BlocoDao) {
     suspend fun edit(nota: Nota){
         blocoDao.update(nota)
     }
+
+    suspend fun delete(nota: Nota){
+        blocoDao.delete(nota)
+    }
 }

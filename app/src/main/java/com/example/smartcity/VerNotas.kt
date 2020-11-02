@@ -4,6 +4,9 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -18,17 +21,23 @@ import kotlinx.android.synthetic.main.activity_add_nota.view.*
 class VerNotas : AppCompatActivity() {
     private lateinit var blocoViewModel: BlocoViewModel
 
+    var id : Int = 0
+    lateinit var titulo :String
+    lateinit var subtitulo :String
+    lateinit var data :String
+    lateinit var nota :String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ver_notas)
 
         val intent = getIntent();
 
-        val id = intent.getIntExtra("id",-1)
-        val titulo = intent.getStringExtra("titulo")
-        val subtitulo = intent.getStringExtra("subtitulo")
-        val data = intent.getStringExtra("data")
-        val nota = intent.getStringExtra("nota")
+        id = intent.getIntExtra("id",-1)
+        titulo = intent.getStringExtra("titulo").toString()
+        subtitulo = intent.getStringExtra("subtitulo").toString()
+        data = intent.getStringExtra("data").toString()
+        nota = intent.getStringExtra("nota").toString()
         Log.e("String", titulo.toString())
         val titulotext: EditText = findViewById(R.id.titulo)
         val subtitulotext: EditText = findViewById(R.id.subtitulo)
@@ -63,5 +72,32 @@ class VerNotas : AppCompatActivity() {
             finish()
         }
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.menuvernota, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+            R.id.botao_eliminar -> {
+
+
+                Log.e("id", id.toString())
+                val notaDelete: Nota = Nota (
+                                    id = id,
+                                    titulo = titulo,
+                                    subtitulo = subtitulo,
+                                    data = data,
+                                    nota = nota
+                                )
+
+                blocoViewModel.delete(notaDelete)
+                finish()
+                true
+            } else -> super.onOptionsItemSelected(item)
+        }
     }
 }
