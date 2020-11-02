@@ -29,5 +29,9 @@ class BlocoViewModel(application: Application) : AndroidViewModel(application) {
     fun edit(nota: Nota) = viewModelScope.launch(Dispatchers.IO) {
         repository.edit(nota)
     }
+
+    fun delete(nota: Nota) = viewModelScope.launch(Dispatchers.IO) {
+        repository.delete(nota)
+    }
 }
 

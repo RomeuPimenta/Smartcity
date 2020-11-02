@@ -49,10 +49,6 @@ class MainActivity : AppCompatActivity(),  NotaAdapter.NotasAdapterListener {
 
         if ( requestCode == newNotaActivityRequestCode && resultCode == Activity.RESULT_OK){
 
-            /*val city = data?.getStringExtra(AddCity.EXTRA_REPLY)
-            val capital = data?.getStringExtra(AddCity.EXTRA1_REPLY)
-            val city1 = city?.let { capital?.let { it1 -> City(city = it, capital = it1) } }
-            cityViewModel.insert(city1!!)*/
 
             val titulo = data?.getStringExtra(AddNota.EXTRA_TITULO)
             val subtitulo = data?.getStringExtra(AddNota.EXTRA_SUBTITULO)

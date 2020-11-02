@@ -26,7 +26,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:contentDescription="@string/add_note"
-        android:src="@drawable/ic_baseline_note_add_24" />
+        android:src="@drawable/ic_baseline_note_add_24"
+        app:backgroundTint="@color/addNotas"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
