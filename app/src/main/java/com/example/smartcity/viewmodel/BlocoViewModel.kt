@@ -17,13 +17,17 @@ class BlocoViewModel(application: Application) : AndroidViewModel(application) {
     val allnotas: LiveData<List<Nota>>
 
     init{
-        val citiesDao = BlocoDB.getDatabase(application, viewModelScope).blocoDao()
-        repository = BlocoRepository(citiesDao)
+        val notasDao = BlocoDB.getDatabase(application, viewModelScope).blocoDao()
+        repository = BlocoRepository(notasDao)
         allnotas = repository.allnotas
     }
 
     fun insert(nota: Nota) = viewModelScope.launch(Dispatchers.IO) {
         repository.insert(nota)
+    }
+
+    fun edit(nota: Nota) = viewModelScope.launch(Dispatchers.IO) {
+        repository.edit(nota)
     }
 }
 

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -17,7 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),  NotaAdapter.NotasAdapterListener {
 
     private lateinit var blocoViewModel: BlocoViewModel
     private val newNotaActivityRequestCode = 1
@@ -27,13 +28,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
-        val adapter = NotaAdapter(this)
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
 
         blocoViewModel = ViewModelProvider(this).get(BlocoViewModel::class.java)
         blocoViewModel.allnotas.observe(this, Observer { notas ->
-            notas?.let {adapter.setNotas(it)}
+            //notas?.let {adapter.setNotas(it)}
+            val adapter = NotaAdapter(notas.toMutableList(), this, this)
+            recyclerView.adapter = adapter
+            recyclerView.layoutManager = LinearLayoutManager(this)
         })
 
         val fab = findViewById<FloatingActionButton>(R.id.fab)
@@ -69,5 +70,16 @@ class MainActivity : AppCompatActivity() {
                 getString(R.string.mensagemErro),
                 Toast.LENGTH_LONG).show()
         }
+    }
+
+    override fun onNotaSelected(nota: Nota?, position: Int) {
+        val intent = Intent(this@MainActivity, VerNotas::class.java)
+        intent.putExtra("id",nota?.id)
+        intent.putExtra("titulo",nota?.titulo)
+        intent.putExtra("subtitulo",nota?.subtitulo)
+        intent.putExtra("data",nota?.data)
+        intent.putExtra("nota",nota?.nota)
+
+        startActivity(intent)
     }
 }

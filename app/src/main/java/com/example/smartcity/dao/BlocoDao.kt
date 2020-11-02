@@ -1,10 +1,7 @@
 package com.example.smartcity.dao
 
-import androidx.room.Dao
-import androidx.room.Query
 import androidx.lifecycle.LiveData
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
+import androidx.room.*
 import com.example.smartcity.entities.Nota
 
 @Dao
@@ -22,4 +19,7 @@ interface BlocoDao {
 
     @Query("DELETE FROM notas_table")
     suspend fun deleteAll()
+
+    @Update
+    fun update(nota: Nota)
 }
