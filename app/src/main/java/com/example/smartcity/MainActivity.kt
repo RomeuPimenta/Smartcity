@@ -2,14 +2,20 @@ package com.example.smartcity
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.app.SearchManager
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
+import android.widget.EditText
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,6 +33,7 @@ class MainActivity : AppCompatActivity(),  NotaAdapter.NotasAdapterListener {
 
     private lateinit var blocoViewModel: BlocoViewModel
     private val newNotaActivityRequestCode = 1
+    private var adapter: NotaAdapter?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +44,7 @@ class MainActivity : AppCompatActivity(),  NotaAdapter.NotasAdapterListener {
         blocoViewModel = ViewModelProvider(this).get(BlocoViewModel::class.java)
         blocoViewModel.allnotas.observe(this, Observer { notas ->
             //notas?.let {adapter.setNotas(it)}
-            val adapter = NotaAdapter(notas.toMutableList(), this, this)
+            adapter = NotaAdapter(notas.toMutableList(), this, this)
             recyclerView.adapter = adapter
             recyclerView.layoutManager = LinearLayoutManager(this)
         })
@@ -87,6 +94,25 @@ class MainActivity : AppCompatActivity(),  NotaAdapter.NotasAdapterListener {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.menuinicial, menu)
+
+        //val searchView = SearchView((this as MainActivity).supportActionBar?.themedContext ?: applicationContext)
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchView = menu?.findItem(R.id.botao_pesquisar)?.actionView as? SearchView
+        searchView!!.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                adapter?.filter?.filter(query)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                adapter?.filter?.filter(newText)
+                return false
+            }
+        })
+        searchView.setOnClickListener { view -> }
+
         return true
     }
 
