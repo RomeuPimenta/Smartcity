@@ -1,6 +1,8 @@
 package com.example.smartcity
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -83,19 +85,29 @@ class VerNotas : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId){
             R.id.botao_eliminar -> {
+                AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.tituloCerteza2))
+                    .setMessage(getString(R.string.mensagemCerteza2)) // Specifying a listener allows you to take an action before dismissing the dialog.
+                    // The dialog is automatically dismissed when a dialog button is clicked.
+                    .setPositiveButton(
+                        getString(R.string.sim),
+                        DialogInterface.OnClickListener { dialog, which ->
+                            Log.e("id", id.toString())
+                            val notaDelete: Nota = Nota (
+                                id = id,
+                                titulo = titulo,
+                                subtitulo = subtitulo,
+                                data = data,
+                                nota = nota
+                            )
+
+                            blocoViewModel.delete(notaDelete)
+                            finish()
+                        }) // A null listener allows the button to dismiss the dialog and take no further action.
+                    .setNegativeButton(getString(R.string.nao), null)
+                    .show()
 
 
-                Log.e("id", id.toString())
-                val notaDelete: Nota = Nota (
-                                    id = id,
-                                    titulo = titulo,
-                                    subtitulo = subtitulo,
-                                    data = data,
-                                    nota = nota
-                                )
-
-                blocoViewModel.delete(notaDelete)
-                finish()
                 true
             } else -> super.onOptionsItemSelected(item)
         }

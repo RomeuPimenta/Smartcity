@@ -16,5 +16,7 @@
     <string name="nao">No</string>
     <string name="tituloCerteza">Delete all notes</string>
     <string name="mensagemCerteza">Are you sure that you want to delete all the notes? This process is irreversible!</string>
+    <string name="tituloCerteza2">Delete note</string>
+    <string name="mensagemCerteza2">Are you sure that you want to delete this note? This process is irreversible!</string>
 
 </resources>
