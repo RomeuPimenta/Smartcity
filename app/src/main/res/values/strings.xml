@@ -7,4 +7,12 @@
     <string name="adicionar">Adicionar</string>
     <string name="mensagemErro">Não foi inserida nenhuma nota</string>
     <string name="edit">editar</string>
+    <string name="EliminarTudo">Eliminar Tudo</string>
+    <string name="procurar">Procurar</string>
+    <string name="pesquisartitulo">Pesquisar por Titulo</string>
+    <string name="pesquisarsubtitulo">Pesquisar por SubTitulo</string>
+    <string name="sim">Sim</string>
+    <string name="nao">Não</string>
+    <string name="tituloCerteza">Eliminar todas as notas</string>
+    <string name="mensagemCerteza">Tem a certeza que pretende eliminar todas as notas? Este processo não é reversivel!</string>
 </resources>

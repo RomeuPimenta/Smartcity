@@ -33,5 +33,9 @@ class BlocoViewModel(application: Application) : AndroidViewModel(application) {
     fun delete(nota: Nota) = viewModelScope.launch(Dispatchers.IO) {
         repository.delete(nota)
     }
+
+    fun deleteAll() = viewModelScope.launch(Dispatchers.IO){
+        repository.deleteAll()
+    }
 }
 

@@ -20,4 +20,8 @@ class BlocoRepository(private val blocoDao: BlocoDao) {
     suspend fun delete(nota: Nota){
         blocoDao.delete(nota)
     }
+
+    suspend fun  deleteAll() {
+        blocoDao.deleteAll()
+    }
 }

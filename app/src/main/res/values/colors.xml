@@ -4,5 +4,6 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="corNotas">#FFEB3B</color>
+    <color name="corNotasFraco">#D5F4E772</color>
     <color name="addNotas">#6C82FD</color>
 </resources>

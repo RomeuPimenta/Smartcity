@@ -1,11 +1,15 @@
 package com.example.smartcity
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +21,7 @@ import com.example.smartcity.viewmodel.BlocoViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+
 
 class MainActivity : AppCompatActivity(),  NotaAdapter.NotasAdapterListener {
 
@@ -77,5 +82,34 @@ class MainActivity : AppCompatActivity(),  NotaAdapter.NotasAdapterListener {
         intent.putExtra("nota",nota?.nota)
 
         startActivity(intent)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.menuinicial, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.botao_eliminar_tudo -> {
+                AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.tituloCerteza))
+                    .setMessage(getString(R.string.mensagemCerteza)) // Specifying a listener allows you to take an action before dismissing the dialog.
+                    // The dialog is automatically dismissed when a dialog button is clicked.
+                    .setPositiveButton(
+                        getString(R.string.sim),
+                        DialogInterface.OnClickListener { dialog, which ->
+                            blocoViewModel.deleteAll()
+                        }) // A null listener allows the button to dismiss the dialog and take no further action.
+                    .setNegativeButton(getString(R.string.nao), null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show()
+
+
+                true
+            }
+            else -> false
+        }
     }
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/botao_pesquisar"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="@string/procurar" />
+
+    <item
+        android:id="@+id/botao_eliminar_tudo"
+        app:showAsAction="never"
+        android:title="@string/EliminarTudo"/>
+
+</menu>

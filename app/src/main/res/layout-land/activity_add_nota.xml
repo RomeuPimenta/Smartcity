@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/corNotasFraco">
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        >
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/relativeCampos">
+
+    <TextView
+        android:id="@+id/tituloTextView"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:labelFor="@+id/titulo"
+        android:text="@string/titulo"
+        android:textStyle="bold"
+        android:textSize="10pt"
+        android:fontFamily="sans-serif-light">
+
+    </TextView>
+
+    <EditText
+        android:id="@+id/titulo"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:textSize="18sp"
+        android:inputType="text"
+        android:importantForAutofill="no"
+        android:layout_below="@+id/tituloTextView"/>
+
+    <TextView
+        android:id="@+id/subtituloTextView"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:labelFor="@+id/subtitulo"
+        android:text="@string/subtitulo"
+        android:layout_below="@+id/titulo"
+        android:textSize="7pt"
+        android:textStyle="italic"
+        android:fontFamily="sans-serif-light">
+
+    </TextView>
+
+    <EditText
+        android:id="@+id/subtitulo"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:importantForAutofill="no"
+        android:textSize="18sp"
+        android:inputType="text"
+        android:layout_below="@id/subtituloTextView"/>
+
+
+    <TextView
+        android:id="@+id/notaTextView"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:labelFor="@+id/nota"
+        android:layout_below="@+id/subtitulo"
+        android:text="@string/nota"/>
+
+    <EditText
+        android:minLines="1"
+        android:id="@+id/nota"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:inputType="textMultiLine"
+        android:textSize="18sp"
+        android:layout_below="@+id/notaTextView"/>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/relativeCampos">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|bottom"
+                android:orientation="vertical" >
+
+                <Button
+                    android:id="@+id/button_save"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center"
+                    android:text="@string/adicionar" />
+
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

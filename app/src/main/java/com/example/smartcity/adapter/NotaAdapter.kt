@@ -12,63 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.smartcity.R
 import com.example.smartcity.entities.Nota
 
-/*class NotaAdapter internal constructor (
-    context: Context,
-
-    listener: NotaAdapterListener
-
-) : RecyclerView.Adapter<NotaAdapter.BlocoViewHolder>(){
-
-    private val inflater: LayoutInflater = LayoutInflater.from(context)
-    private var notas = emptyList<Nota>()
-    private var context: Context = context
-    private val listener: NotaAdapterListener
-
-
-    class BlocoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tituloItemView: TextView = itemView.findViewById(R.id.titulo)
-        val subtituloItemView: TextView = itemView.findViewById(R.id.subtitulo)
-        val dataItemView: TextView = itemView.findViewById(R.id.data)
-
-
-
-        init {
-            itemView.setOnClickListener { // send selected contact in callback
-                listener.onProductSelected(notas[adapterPosition])
-            }
-        }
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlocoViewHolder {
-        val itemView = inflater.inflate(R.layout.recyclerview_item, parent, false)
-        return BlocoViewHolder(itemView)
-    }
-
-    override fun onBindViewHolder(holder: BlocoViewHolder, position: Int) {
-
-        val current = notas[position]
-        holder.tituloItemView.text = current.titulo.toString()
-        holder.subtituloItemView.text = current.subtitulo.toString()
-        holder.dataItemView.text = current.data.toString()
-
-        holder.itemView.setOnClickListener(View.OnClickListener {
-            Toast.makeText(context, "This is item in position " + position, Toast.LENGTH_SHORT).show();
-        })
-    }
-
-    internal fun setNotas(notas: List<Nota>) {
-        this.notas = notas
-        notifyDataSetChanged()
-    }
-
-    override fun getItemCount() = notas.size
-}
-
-interface NotaAdapterListener {
-    fun onNotaSelected(nota: Nota?)
-}
-
-*/
 
 public class NotaAdapter(notaList: MutableList<Nota>, listener: NotasAdapterListener, context : Context) : RecyclerView.Adapter<NotaAdapter.MyViewHolder>() {
     private val notaList: MutableList<Nota>
@@ -77,9 +20,9 @@ public class NotaAdapter(notaList: MutableList<Nota>, listener: NotasAdapterList
 
     inner class MyViewHolder internal constructor(view: View) :
         RecyclerView.ViewHolder(view) {
-        lateinit var titulo: TextView
-        lateinit var subtitulo: TextView
-        lateinit var data: TextView
+        var titulo: TextView
+        var subtitulo: TextView
+        var data: TextView
 
 
         init {

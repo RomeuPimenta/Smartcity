@@ -2,5 +2,19 @@
 <resources>
     <string name="app_name">Smartcity</string>
     <string name="add_note">New Note</string>
+    <string name="titulo">Title</string>
+    <string name="subtitulo">SubTitle</string>
+    <string name="nota">Note</string>
+    <string name="adicionar">Add</string>
+    <string name="mensagemErro">No note inserted</string>
+    <string name="edit">edit</string>
+    <string name="EliminarTudo">Delete All</string>
+    <string name="procurar">Search</string>
+    <string name="pesquisartitulo">Search by Title</string>
+    <string name="pesquisarsubtitulo">Search by SubTitle</string>
+    <string name="sim">Yes</string>
+    <string name="nao">No</string>
+    <string name="tituloCerteza">Delete all notes</string>
+    <string name="mensagemCerteza">Are you sure that you want to delete all the notes? This process is irreversible!</string>
 
 </resources>
