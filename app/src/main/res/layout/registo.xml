@@ -10,11 +10,11 @@
 
     <TextView
         android:id="@+id/TextoViewTitulo"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="40dp"
         android:layout_marginStart="110dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/nomeApp"
+        android:text="@string/registo"
         android:textStyle="bold"
         android:textSize="40sp"
         android:fontFamily="sans-serif">
@@ -24,7 +24,7 @@
     <TextView
         android:id="@+id/TextoViewlogin"
         android:layout_below="@+id/TextoViewTitulo"
-        android:layout_marginTop="105dp"
+        android:layout_marginTop="50dp"
         android:layout_marginStart="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,10 +38,9 @@
 
         <EditText
             android:id="@+id/login"
-            android:layout_below="@+id/TextoViewTitulo"
-            android:layout_marginTop="80dp"
-            android:layout_toRightOf="@+id/TextoViewlogin"
-            android:layout_marginLeft="5pt"
+            android:layout_below="@+id/TextoViewlogin"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
@@ -53,7 +52,7 @@
             android:id="@+id/TextViewPassword"
             android:layout_marginTop="12pt"
             android:layout_marginStart="30dp"
-            android:layout_below="@+id/TextoViewlogin"
+            android:layout_below="@+id/login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/password"
@@ -65,62 +64,57 @@
 
         <EditText
             android:id="@+id/password"
-            android:layout_below="@+id/login"
-            android:layout_toRightOf="@+id/TextViewPassword"
+            android:layout_below="@+id/TextViewPassword"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
             android:inputType="textPassword"
             android:textSize="18sp" />
 
+    <TextView
+        android:id="@+id/TextViewPassword2"
+        android:layout_marginTop="12pt"
+        android:layout_marginStart="30dp"
+        android:layout_below="@+id/password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/repetirpassword"
+        android:fontFamily="sans-serif"
+        android:textSize="25sp"
+        >
+
+    </TextView>
+
+    <EditText
+        android:id="@+id/password2"
+        android:layout_below="@+id/TextViewPassword2"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:inputType="textPassword"
+        android:textSize="18sp" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_below="@+id/password"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="150dp"
         android:orientation="vertical"
         >
 
-        <Button
-            android:id="@+id/button_login"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:text="@string/login"
-            />
 
         <Button
             android:id="@+id/button_registo"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/button_login"
             android:layout_marginLeft="20dp"
-            android:text="@string/registo" />
-
-        <Button
-            android:id="@+id/button_irnotas"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerInParent="true"
-            android:text="@string/irnotas" />
-
-       <!-- <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:contentDescription="@string/add_note"
-            android:src="@drawable/ic_baseline_speaker_notes_24"
-            app:backgroundTint="@color/corFundo"/>   -->
+            android:text="@string/registar" />
 
 
     </RelativeLayout>
