@@ -1,141 +1,83 @@
 package com.example.smartcity
 
-import android.app.Activity
-import android.app.AlertDialog
-import android.app.SearchManager
-import android.content.Context
-import android.content.DialogInterface
+
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
+import android.util.Log
+import android.widget.Button
 import android.widget.EditText
-import android.widget.SearchView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.smartcity.adapter.NotaAdapter
-import com.example.smartcity.entities.Nota
-import com.example.smartcity.viewmodel.AddNota
-import com.example.smartcity.viewmodel.BlocoViewModel
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import com.example.smartcity.api.EndPoints
+import com.example.smartcity.api.ServiceBuilder
+import com.example.smartcity.api.User
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
-class MainActivity : AppCompatActivity(),  NotaAdapter.NotasAdapterListener {
-
-    private lateinit var blocoViewModel: BlocoViewModel
-    private val newNotaActivityRequestCode = 1
-    private var adapter: NotaAdapter?=null
+class MainActivity : AppCompatActivity() {
+    var button: Button? = null;
+    var buttonLogin: Button? = null;
+    var buttonRegistar: Button? = null;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
+        setViews()
+        setClickListener()
 
-        blocoViewModel = ViewModelProvider(this).get(BlocoViewModel::class.java)
-        blocoViewModel.allnotas.observe(this, Observer { notas ->
-            //notas?.let {adapter.setNotas(it)}
-            adapter = NotaAdapter(notas.toMutableList(), this, this)
-            recyclerView.adapter = adapter
-            recyclerView.layoutManager = LinearLayoutManager(this)
-        })
 
-        val fab = findViewById<FloatingActionButton>(R.id.fab)
-        fab.setOnClickListener {
-            val intent = Intent(this@MainActivity, AddNota::class.java)
-            startActivityForResult(intent, newNotaActivityRequestCode)
+    }
+
+    fun setViews() {
+        button = findViewById<Button>(R.id.button_irnotas)
+        buttonLogin = findViewById<Button>(R.id.button_login)
+        buttonRegistar = findViewById<Button>(R.id.button_registo)
+    }
+
+    fun setClickListener() {
+        button?.setOnClickListener {
+            val intent = Intent(this@MainActivity, ListaNotas::class.java)
+            startActivity(intent)
+        }
+
+        buttonLogin?.setOnClickListener {
+
+            buttonLoginClickListener()
+        }
+
+        buttonRegistar?.setOnClickListener {
+            val intent = Intent(this@MainActivity, Registo::class.java)
+            startActivity(intent)
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?){
-        super.onActivityResult(requestCode, resultCode, data)
+    fun buttonLoginClickListener() {
+        val username = findViewById<EditText>(R.id.login)
+        val password = findViewById<EditText>(R.id.password)
 
-        if ( requestCode == newNotaActivityRequestCode && resultCode == Activity.RESULT_OK){
+        val request = ServiceBuilder.buildService(EndPoints::class.java)
+        val call = request.login(username.text.toString(), password.text.toString())
 
 
-            val titulo = data?.getStringExtra(AddNota.EXTRA_TITULO)
-            val subtitulo = data?.getStringExtra(AddNota.EXTRA_SUBTITULO)
-            val notatexto = data?.getStringExtra(AddNota.EXTRA_NOTA)
-            val current = LocalDateTime.now()
-            val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")
-            val formatted = current.format(formatter)
-            val nota =
-                notatexto?.let { subtitulo?.let { it1 -> titulo?.let { it2 -> Nota(titulo= it2, subtitulo= it1, data=formatted, nota= it) } } }
-            blocoViewModel.insert(nota!!)
-
-        }else{
-            Toast.makeText(
-                applicationContext,
-                getString(R.string.mensagemErro),
-                Toast.LENGTH_LONG).show()
-        }
-    }
-
-    override fun onNotaSelected(nota: Nota?, position: Int) {
-        val intent = Intent(this@MainActivity, VerNotas::class.java)
-        intent.putExtra("id",nota?.id)
-        intent.putExtra("titulo",nota?.titulo)
-        intent.putExtra("subtitulo",nota?.subtitulo)
-        intent.putExtra("data",nota?.data)
-        intent.putExtra("nota",nota?.nota)
-
-        startActivity(intent)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater: MenuInflater = menuInflater
-        inflater.inflate(R.menu.menuinicial, menu)
-
-        //val searchView = SearchView((this as MainActivity).supportActionBar?.themedContext ?: applicationContext)
-        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        val searchView = menu?.findItem(R.id.botao_pesquisar)?.actionView as? SearchView
-        searchView!!.setSearchableInfo(searchManager.getSearchableInfo(componentName))
-
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                adapter?.filter?.filter(query)
-                return false
+        call.enqueue(object : Callback<User> {
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                Log.e("teste", response.toString())
+                if (response.isSuccessful) {
+                    Log.e("response", response.toString())
+                    val intent = Intent(this@MainActivity, camadaTeste::class.java)
+                    startActivity(intent)
+                }
             }
 
-            override fun onQueryTextChange(newText: String): Boolean {
-                adapter?.filter?.filter(newText)
-                return false
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                username.error = "Username ou password incorreta";
+                password.error = "Username ou password incorreta";
+                Log.e("responseError", t.toString())
+                //Toast.makeText(applicationContext, "Erro", Toast.LENGTH_SHORT).show()
             }
         })
-        searchView.setOnClickListener { view -> }
-
-        return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.botao_eliminar_tudo -> {
-                AlertDialog.Builder(this)
-                    .setTitle(getString(R.string.tituloCerteza))
-                    .setMessage(getString(R.string.mensagemCerteza)) // Specifying a listener allows you to take an action before dismissing the dialog.
-                    // The dialog is automatically dismissed when a dialog button is clicked.
-                    .setPositiveButton(
-                        getString(R.string.sim),
-                        DialogInterface.OnClickListener { dialog, which ->
-                            blocoViewModel.deleteAll()
-                        }) // A null listener allows the button to dismiss the dialog and take no further action.
-                    .setNegativeButton(getString(R.string.nao), null)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .show()
-
-
-                true
-            }
-            else -> false
-        }
-    }
 }

@@ -17,4 +17,12 @@
     <string name="mensagemCerteza">Tem a certeza que pretende eliminar todas as notas? Este processo não é reversivel!</string>
     <string name="tituloCerteza2">Apagar Nota</string>
     <string name="mensagemCerteza2">Tem a certeza que pretende apagar esta nota? Esta é uma ação irreversivel!</string>
+    <string name="nomeApp">SmartCity</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="registo">Registo</string>
+    <string name="irnotas">Ver Bloco Notas</string>
+    <string name="registar">Registar</string>
+    <string name="repetirpassword">Repita a Password</string>
 </resources>
