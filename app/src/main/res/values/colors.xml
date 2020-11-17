@@ -6,5 +6,5 @@
     <color name="corNotas">#FFEB3B</color>
     <color name="corNotasFraco">#D5F4E772</color>
     <color name="addNotas">#000000</color>
-    <color name="corFundo">#D7FA7044</color>
+    <color name="corFundo">#FFFFFF</color>
 </resources>

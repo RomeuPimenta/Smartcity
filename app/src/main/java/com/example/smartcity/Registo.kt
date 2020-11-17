@@ -53,6 +53,7 @@ class Registo: AppCompatActivity() {
         call.enqueue(object : Callback<Object> {
 
             override fun onResponse(call: Call<Object>, response: Response<Object>) {
+                Log.e("teste", response.toString())
                 if (response.isSuccessful) {
                     val obj = JSONObject(response.body().toString())
 

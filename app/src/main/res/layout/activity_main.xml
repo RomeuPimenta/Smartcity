@@ -1,128 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/corFundo"
-    android:id="@+id/relative1">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/TextoViewTitulo"
-        android:layout_marginTop="80dp"
-        android:layout_marginStart="110dp"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/relative1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/nomeApp"
-        android:textStyle="bold"
-        android:textSize="40sp"
-        android:fontFamily="sans-serif">
+        android:layout_height="match_parent"
+        android:background="@color/corFundo"
+        android:orientation="vertical">
 
-    </TextView>
 
-    <TextView
-        android:id="@+id/TextoViewlogin"
-        android:layout_below="@+id/TextoViewTitulo"
-        android:layout_marginTop="105dp"
-        android:layout_marginStart="30dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/username"
-        android:labelFor="@+id/login"
+        <ImageView
+            android:id="@+id/TextoViewLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/logo1" />
 
-        android:textSize="25sp"
-        android:fontFamily="sans-serif">
+        <TextView
+            android:id="@+id/TextoViewlogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/TextoViewLogo"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="50dp"
+            android:fontFamily="sans-serif"
+            android:labelFor="@+id/login"
 
-    </TextView>
+            android:text="@string/username"
+            android:textSize="25sp">
+
+        </TextView>
 
         <EditText
             android:id="@+id/login"
-            android:layout_below="@+id/TextoViewTitulo"
-            android:layout_marginTop="80dp"
-            android:layout_toRightOf="@+id/TextoViewlogin"
-            android:layout_marginLeft="5pt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/TextoViewlogin"
+            android:layout_marginStart="30dp"
             android:fontFamily="sans-serif"
-            android:textSize="25sp"
+            android:importantForAutofill="no"
             android:inputType="text"
-            android:importantForAutofill="no" />
+            android:textSize="25sp" />
 
         <TextView
             android:id="@+id/TextViewPassword"
-            android:layout_marginTop="12pt"
-            android:layout_marginStart="30dp"
-            android:layout_below="@+id/TextoViewlogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/password"
+            android:layout_below="@+id/login"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="12pt"
             android:fontFamily="sans-serif"
-            android:textSize="25sp"
-            >
+            android:text="@string/password"
+            android:textSize="25sp">
 
         </TextView>
 
         <EditText
             android:id="@+id/password"
-            android:layout_below="@+id/login"
-            android:layout_toRightOf="@+id/TextViewPassword"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/TextViewPassword"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="sans-serif-light"
             android:inputType="textPassword"
             android:textSize="18sp" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/password"
-        android:layout_marginTop="40dp"
-        android:orientation="vertical"
-        >
-
-        <Button
-            android:id="@+id/button_login"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:text="@string/login"
-            />
-
-        <Button
-            android:id="@+id/button_registo"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/button_login"
-            android:layout_marginLeft="20dp"
-            android:text="@string/registo" />
-
-        <Button
-            android:id="@+id/button_irnotas"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_below="@+id/password"
             android:layout_alignParentBottom="true"
-            android:layout_centerInParent="true"
-            android:text="@string/irnotas" />
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
 
-       <!-- <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:contentDescription="@string/add_note"
-            android:src="@drawable/ic_baseline_speaker_notes_24"
-            app:backgroundTint="@color/corFundo"/>   -->
+            <Button
+                android:id="@+id/button_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:text="@string/login"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                android:textColor="@color/corFundo" />
+
+            <Button
+                android:id="@+id/button_registo"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/button_login"
+                android:layout_margin="10dp"
+                android:layout_marginLeft="20dp"
+                android:backgroundTint="#F8F5F5"
+                android:text="@string/registo"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                android:textColor="@color/colorPrimaryDark" />
+
+            <Button
+                android:id="@+id/button_irnotas"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/button_registo"
+                android:layout_centerInParent="true"
+                android:backgroundTint="#F8F5F5"
+                android:text="@string/irnotas"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                android:textColor="@color/colorPrimaryDark" />
+
+        </RelativeLayout>
 
 
     </RelativeLayout>
-
-</RelativeLayout>
+</ScrollView>
