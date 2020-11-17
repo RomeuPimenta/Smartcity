@@ -21,10 +21,18 @@ interface EndPoints {
     @FormUrlEncoded
     @POST("smartcity/login")
     fun login(@Field("username") username: String,
-              @Field("password") password: String): Call<User>
+              @Field("password") password: String): Call<Object>
 
     @FormUrlEncoded
     @POST("smartcity/registo")
     fun registo(@Field("username") username: String,
               @Field("password") password: String): Call<Object>
+
+    @FormUrlEncoded
+    @POST("smartcity/inserir")
+    fun inserir(@Field("texto") texto: String,
+                @Field ("lat") lat: Float,
+                @Field ("lng") lng: Float,
+                @Field ("morada") morada: String,
+                @Field ("id_utilizador") id_utilizador: Int): Call<Object>
 }

@@ -25,4 +25,9 @@
     <string name="irnotas">Ver Bloco Notas</string>
     <string name="registar">Registar</string>
     <string name="repetirpassword">Repita a Password</string>
+    <string name="logout">Logout</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="inserirlocalizacao">Inserir Localização</string>
+    <string name="texto">Descrição</string>
+    <string name="guardar">Enviar</string>
 </resources>
