@@ -35,8 +35,9 @@ class InserirDados : AppCompatActivity() {
         button_save?.setOnClickListener {
             val editext = findViewById<EditText>(R.id.texto)
             val texto = editext.text
-            val lat = intent.getFloatExtra("lat", 0.0F)
-            val lng = intent.getFloatExtra("lng", 0.0F)
+            val lat = intent.getStringExtra("lat")
+            val lng = intent.getStringExtra("lng")
+            Log.e("lat", lat.toString())
             val morada = intent.getStringExtra("morada")
             val sharedPreferences: SharedPreferences =
                 getSharedPreferences("REMEMBER", Context.MODE_PRIVATE);
@@ -44,7 +45,7 @@ class InserirDados : AppCompatActivity() {
 
             val request = ServiceBuilder.buildService(EndPoints::class.java)
             val call =
-                request.inserir(texto.toString(), lat, lng, morada.toString(), id_utilizador)
+                request.inserir(texto.toString(), lat!!.toFloat(), lng!!.toFloat(), morada.toString(), id_utilizador)
 
             call.enqueue(object : Callback<Object> {
                 override fun onResponse(call: Call<Object>, response: Response<Object>) {

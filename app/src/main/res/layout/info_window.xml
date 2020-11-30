@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/common_google_signin_btn_icon_dark_normal_background"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#000000"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:id="@+id/descricao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="10"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:layout_margin="10dp"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/edit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom|end"
+            android:contentDescription="@string/add_note"
+            android:src="@drawable/ic_baseline_edit_24"
+            app:backgroundTint="@color/addNotas"
+            app:fabSize="mini"
+            android:elevation="9dp"/>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

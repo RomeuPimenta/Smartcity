@@ -35,4 +35,22 @@ interface EndPoints {
                 @Field ("lng") lng: Float,
                 @Field ("morada") morada: String,
                 @Field ("id_utilizador") id_utilizador: Int): Call<Object>
+
+    //@FormUrlEncoded
+    @POST("smartcity/markers")
+    fun markers(): Call<List<Locations>>
+
+    @FormUrlEncoded
+    @POST("smartcity/markersbyid")
+    fun getMarkerById(@Field("id") id: Int): Call<List<Locations>>
+
+    @FormUrlEncoded
+    @POST("smartcity/update")
+    fun update(@Field("texto") texto: String,
+                @Field ("morada") morada: String,
+                @Field ("id") id: Int): Call<Object>
+
+    @FormUrlEncoded
+    @POST("smartcity/delete")
+    fun apagarmarker(@Field("id") id: Int): Call<Object>
 }

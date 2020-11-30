@@ -37,6 +37,9 @@
             android:name=".InserirDados"
             android:parentActivityName=".MapsActivity" />
         <activity
+            android:name=".EditarMarker"
+            android:parentActivityName=".MapsActivity" />
+        <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
