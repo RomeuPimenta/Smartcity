@@ -6,27 +6,37 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.Button
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import com.example.smartcity.adapter.CustomInfoWindowForGoogleMap
+import com.example.smartcity.api.EndPoints
+import com.example.smartcity.api.Locations
+import com.example.smartcity.api.ServiceBuilder
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+
+class MapsActivity : AppCompatActivity(), OnMapReadyCallback, CustomInfoWindowForGoogleMap.CustomWindowAdapterListener {
 
     var fab: FloatingActionButton? =null;
     var locationRequest: LocationRequest?=null;
-    private lateinit var mMap: GoogleMap
+    private var mMap: GoogleMap?=null;
     private val LOCATION_PERMISSION_REQUEST_CODE = 1
     var fusedLocationClient: FusedLocationProviderClient?=null;
     var locationCallback: LocationCallback?=null;
@@ -44,26 +54,64 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         locationCallback = object : LocationCallback() {
 
             override fun onLocationResult(p0: LocationResult) {
+
                 super.onLocationResult(p0)
                 lastLocation = p0.lastLocation
                 var loc = LatLng(lastLocation.latitude, lastLocation.longitude)
-                //mMap.addMarker(MarkerOptions().position(loc).title("Marker"))
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 15.0f))
+
+                mMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 15.0f))
                 address = getAddress(lastLocation.latitude, lastLocation.longitude)
 
             }
         }
+
+        setMarkers()
         createLocationRequest()
         setViews()
         setClickListener()
     }
 
+        private fun setMarkers(){
+                val request = ServiceBuilder.buildService(EndPoints::class.java)
+                val call = request.markers()
+
+            call.enqueue(object: Callback<List<Locations>> {
+                override fun onResponse(call: Call<List<Locations>>, response: Response<List<Locations>>){
+                    if(response.isSuccessful){
+                        mMap!!.clear()
+                        for(entry in response.body()!!){
+                            val loc = LatLng(entry.lat, entry.lng)
+                            val completo = "Descrição: " + entry.texto + "\nId_Utilizador: " + entry.id_utilziador + "\nData inserção: " + entry.data +
+                                "\nLat: " + entry.lat + "\nLng: " + entry.lng
+                            val marker: Marker = mMap!!.addMarker(MarkerOptions().position(loc).title(entry.morada).snippet(completo))
+                            marker.tag = entry.id
+                        }
+                    }
+                }
+
+                    override fun onFailure(call: Call<List<Locations>>, t: Throwable) {
+
+                    }
+                })
+            }
+
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+
+        mMap!!.setInfoWindowAdapter(applicationContext?.let { CustomInfoWindowForGoogleMap(this) })
         setUpMap();
+        mMap!!.setOnInfoWindowClickListener(object : GoogleMap.OnInfoWindowClickListener {
+           override fun onInfoWindowClick(marker: Marker?) {
+
+                val intent = Intent(this@MapsActivity, EditarMarker::class.java)
+               Log.e("Teste20", marker?.tag.toString())
+               intent.putExtra("id_marker", marker?.tag.toString())
+                startActivity(intent)
+            }
+        })
         if (ActivityCompat.checkSelfPermission(this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            mMap.isMyLocationEnabled = true;
+            mMap!!.isMyLocationEnabled = true;
         }
 
     }
@@ -103,8 +151,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         fab?.setOnClickListener {
             val intent = Intent(this@MapsActivity, InserirDados::class.java)
             intent.putExtra("morada", address );
-            intent.putExtra("lat", lastLocation.latitude);
-            intent.putExtra("lng", lastLocation.longitude)
+            intent.putExtra("lat", lastLocation.latitude.toString());
+            intent.putExtra("lng", lastLocation.longitude.toString())
             startActivity(intent)
         }
 
@@ -113,13 +161,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onPause() {
         super.onPause()
         fusedLocationClient?.removeLocationUpdates(locationCallback)
-        Log.d("**** SARA", "onPause - removeLocationUpdates")
+
     }
 
     public override fun onResume() {
         super.onResume()
         setUpMap()
-        Log.d("**** SARA", "onResume - startLocationUpdates")
+        Log.e("Teste", "Aqui estou eu")
+        setMarkers()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -142,6 +192,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 true
             } else -> super.onOptionsItemSelected(item)
         }
+    }
+    override fun onWindowSelected(marker: Marker?) {
+        Log.e("Teste", marker.toString())
+        Toast.makeText(applicationContext, "Teste", Toast.LENGTH_SHORT).show()
+    }
+
+    fun onInfoWindowClick(marker: Marker?) {
+        Log.e("Teste2", "Teste")
     }
 
 }

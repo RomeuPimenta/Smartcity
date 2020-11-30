@@ -30,4 +30,11 @@
     <string name="inserirlocalizacao">Inserir Localização</string>
     <string name="texto">Descrição</string>
     <string name="guardar">Enviar</string>
+    <string name="tituloCertezaMarker">Apagar Marcador</string>
+    <string name="mensagemCertezaMarker">Tem a certeza que pretende apagar este marcador? Esta é uma ação irreversivel!</string>
+    <string name="marcadorEliminado">Marcador foi eliminado</string>
+    <string name="erroBD">Ocorreu um erro. Tente novamente</string>
+    <string name="morada">Morada</string>
+    <string name="ApagadoCSucesso">Marcador apagado com sucesso</string>
+    <string name="error">Erro na comunicação. Tente novamente</string>
 </resources>
