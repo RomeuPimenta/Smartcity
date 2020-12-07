@@ -37,4 +37,23 @@
     <string name="morada">Morada</string>
     <string name="ApagadoCSucesso">Marcador apagado com sucesso</string>
     <string name="error">Erro na comunicação. Tente novamente</string>
+    <string name="filtro10">Filtrar num Raio</string>
+    <string name="listartudo">Todos os Pontos</string>
+    <string name="tituloFiltro">Filtro Distância</string>
+    <string name="mensagemFiltro">Defina o raio em km\'s que pretende filtrar</string>
+    <string name="filtrar">Filtrar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="descr">Descrição: %s \nTipo: %s \nUsername: %s  \nData: %s  \nLat: %s \nLng: %s</string>
+    <string name="encontrados">Foram encontrados %s marcadores num raio de %s km</string>
+    <string name="editadoComSucess">Editado com sucesso!</string>
+    <string name="err0">Erro</string>
+    <string name="necessaryText">É necessário ter um texto</string>
+    <string name="loginErrado">Username ou password incorreta</string>
+    <string name="loginSucesso">Login efetuado com sucesso</string>
+    <string name="usernameExistente">Username já existente. Escolha outro.</string>
+    <string name="registoSucesso">Registo efetuado com sucesso.</string>
+    <string name="passwordNCoin">Passwords não coincidem</string>
+    <string name="naoPodeEditar">Não pode editar/apagar por não ser o responsável</string>
+    <string name="filtro20">Filtrar por Tipo</string>
+
 </resources>

@@ -24,5 +24,35 @@
     <string name="login">Login</string>
     <string name="registo">Register</string>
     <string name="irnotas">Go to NotePad</string>
+    <string name="registar">Register</string>
+    <string name="repetirpassword">Repeat Password</string>
+    <string name="logout">Logout</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="inserirlocalizacao">Insert Location</string>
+    <string name="texto">Description</string>
+    <string name="guardar">Send</string>
+    <string name="tituloCertezaMarker">Delete Marker</string>
+    <string name="mensagemCertezaMarker">Are you sure that you want do delete this Marker? This action is irreversivel!!</string>
+    <string name="marcadorEliminado">Marker deleted</string>
+    <string name="erroBD">An error occured. Try again!</string>
+    <string name="morada">Address</string>
+    <string name="ApagadoCSucesso">Marker deleted</string>
+    <string name="error">Comunication Error. Try again</string>
+    <string name="filtro10">Filter points</string>
+    <string name="listartudo">List all point</string>
+    <string name="tituloFiltro">Distance Filter</string>
+    <string name="mensagemFiltro">Define the radius in km\'s that you want to filter</string>
+    <string name="filtrar">Filter</string>
+    <string name="cancelar">Cancel</string>
+    <string name="descricao">Description: %s  \nId_User: %s  \nDate: %s  \nLat: %s \nLng: %s</string>
+    <string name="encontrados">Were found %s markers in a radius of %s km</string>
+    <string name="editadoComSucess">Successfull edited</string>
+    <string name="err0">Error</string>
+    <string name="necessaryText">It\'s necessary a text</string>
+    <string name="loginErrado">Username or password incorrect</string>
+    <string name="loginSucesso">Successfully Login</string>
+    <string name="usernameExistente">Username already taken. Chose another.</string>
+    <string name="registoSucesso">Successfully Register</string>
+    <string name="passwordNCoin">Passwords don\'t match</string>
 
 </resources>

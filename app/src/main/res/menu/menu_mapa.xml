@@ -3,9 +3,23 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
 
+
+
+    <item
+        android:id="@+id/botao_filtro"
+        app:showAsAction="never"
+        android:title="@string/filtro10"/>
+    <item
+        android:id="@+id/botao_filtro2"
+        app:showAsAction="never"
+        android:title="@string/filtro20"/>
+
+    <item
+        android:id="@+id/botao_normal"
+        app:showAsAction="never"
+        android:title="@string/listartudo"/>
     <item
         android:id="@+id/botao_logout"
-        app:showAsAction="always"
+        app:showAsAction="never"
         android:title="@string/logout"/>
-
 </menu>

@@ -13,7 +13,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.smartcity.api.EndPoints
 import com.example.smartcity.api.ServiceBuilder
 import com.example.smartcity.api.User
+import com.example.smartcity.api.UserLogin
 import org.json.JSONObject
+import org.mindrot.jbcrypt.BCrypt
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -71,33 +73,37 @@ class MainActivity : AppCompatActivity() {
         val call = request.login(username.text.toString(), password.text.toString())
 
 
-        call.enqueue(object : Callback<Object> {
-            override fun onResponse(call: Call<Object>, response: Response<Object>) {
+        call.enqueue(object : Callback<UserLogin> {
+            override fun onResponse(call: Call<UserLogin>, response: Response<UserLogin>) {
 
                 if (response.isSuccessful) {
-                    val obj = JSONObject(response.body().toString())
 
-                    if(obj["message"] == "password_incorreta"){
-                        username.error = "Username ou password incorreta";
-                        password.error = "Username ou password incorreta";
-                    }else{
-                        Toast.makeText(applicationContext, "Login efetuado com sucesso", Toast.LENGTH_LONG).show()
+                    Log.e("bcrypt", response.body()?.password.toString())
+                    //val obj = JSONObject(response.body().toString())
+                    if(BCrypt.checkpw(password.text.toString(), response.body()?.password.toString())){
+                        Toast.makeText(applicationContext, R.string.loginSucesso, Toast.LENGTH_LONG).show()
                         Log.e("response", response.toString())
                         val intent = Intent(this@MainActivity, MapsActivity::class.java)
                         val sharedPreferences: SharedPreferences = getSharedPreferences("REMEMBER", Context.MODE_PRIVATE);
                         val remember = sharedPreferences.edit();
-                        remember.putString("username", username.text.toString())
-                        remember.putInt("id_utilizador", parseInt(obj["id"].toString()))
-                        remember.apply();
+                        remember.putString("username", response.body()?.username.toString())
+                        remember.putString("utilizador_id", response.body()?.id.toString())
+                        remember.apply()
+                        
                         startActivity(intent)
                         finish()
+                    }else
+
+                    if(response.body()?.message.toString() == "password_incorreta"){
+                        username.error = R.string.loginErrado.toString();
+                        password.error = R.string.loginErrado.toString();
                     }
                 }
             }
 
-            override fun onFailure(call: Call<Object>, t: Throwable) {
-                username.error = "Username ou password incorreta";
-                password.error = "Username ou password incorreta";
+            override fun onFailure(call: Call<UserLogin>, t: Throwable) {
+                username.error = R.string.loginErrado.toString();
+                password.error = R.string.loginErrado.toString();
                 Log.e("responseError", t.toString())
                 //Toast.makeText(applicationContext, "Erro", Toast.LENGTH_SHORT).show()
             }

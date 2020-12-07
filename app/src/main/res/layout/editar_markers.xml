@@ -53,6 +53,23 @@
         android:importantForAutofill="no" />
 
 
+    <TextView
+        android:id="@+id/tipoTextView"
+        android:layout_marginStart="3pt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:labelFor="@+id/titulo"
+        android:text="@string/texto"
+        android:textSize="10pt"
+        android:fontFamily="sans-serif-light"/>
+
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/txtVw"
+        android:layout_toRightOf="@+id/txtVw"
+        android:layout_marginStart="3pt"/>
 
 
 

@@ -1,77 +1,78 @@
 package com.example.smartcity
 
 import android.app.AlertDialog
-import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.example.smartcity.api.EndPoints
 import com.example.smartcity.api.Locations
 import com.example.smartcity.api.ServiceBuilder
-import com.example.smartcity.entities.Nota
-import com.example.smartcity.viewmodel.BlocoViewModel
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.android.synthetic.main.editar_markers.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class EditarMarker : AppCompatActivity(){
 
+class EditarMarker : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+    var tipos = arrayOf(
+        "Obras",
+        "Danos na via",
+        "Outros"
+    )
     lateinit var id_marker :String
     var texto: String?=null
     var id: String?=null
+    var tipo_id: String?=null
     var morada: String?=null
-    var id_utilizador: Int = 0
+    var utilizador_id: Int = 0
     var data: String?=null
+    var tipo: String?=null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.editar_markers)
+
+
+
         val buttonEdit = findViewById<Button>(R.id.editar_marker)
         val intent = getIntent();
 
 
         id = intent.getStringExtra("id_marker").toString()
-
+        Log.e("tag3300", id.toString())
         val textoView: EditText = findViewById(R.id.texto)
         val moradaView: EditText = findViewById(R.id.morada)
+        val spinner1: String = tipo.toString()
+
+        Log.e("SPINNER", spinner1.toString())
         getMarkerById(id.toString());
 
         buttonEdit.setOnClickListener {
             if(textoView.text.isEmpty()){
-                Toast.makeText(applicationContext, "É necessário ter um texto", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, R.string.necessaryText, Toast.LENGTH_SHORT).show()
             }else{
                 texto = textoView.text.toString()
                 morada = moradaView.text.toString()
 
                 val request2 = ServiceBuilder.buildService(EndPoints::class.java)
-                val call2 = request2.update(textoView.text.toString(), moradaView.text.toString(), id!!.toInt())
+                val call2 = request2.update(textoView.text.toString(), moradaView.text.toString(), id!!.toInt(), tipo_id!!.toString())
                 call2.enqueue(object: Callback<Object> {
                     override fun onResponse(call: Call<Object>, response: Response<Object>){
                         Log.e("TesteIf", response.toString())
                         if(response.isSuccessful){
-                            Toast.makeText(applicationContext, "Editado com sucesso", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(applicationContext, R.string.editadoComSucess, Toast.LENGTH_SHORT).show()
                             finish()
                         }
                     }
 
                     override fun onFailure(call: Call<Object>, t: Throwable) {
-                        Toast.makeText(applicationContext, "Erro!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext, R.string.err0, Toast.LENGTH_SHORT).show()
                         Log.e("TesteErro", t.toString())
                     }
                 })
@@ -82,31 +83,31 @@ class EditarMarker : AppCompatActivity(){
     }
 
      fun getMarkerById(id: String){
+         Log.e("tag3301", id)
         val request = ServiceBuilder.buildService(EndPoints::class.java)
         val call = request.getMarkerById(id!!.toInt())
          val textoView: EditText = findViewById(R.id.texto)
          val moradaView: EditText = findViewById(R.id.morada)
-        call.enqueue(object: Callback<List<Locations>> {
-            override fun onResponse(call: Call<List<Locations>>, response: Response<List<Locations>>){
+        call.enqueue(object: Callback<Locations> {
+            override fun onResponse(call: Call<Locations>, response: Response<Locations>){
+                Log.e("tag3301", response.body().toString())
+                Log.e("tag33011", response.body()?.texto.toString())
+                Log.e("tag33011a", response.body()?.morada.toString())
+
+                texto = response.body()?.texto.toString()
+                morada = response.body()?.morada.toString()
+                tipo_id = response.body()?.tipo_id.toString()
                 if(response.isSuccessful){
-
-                    for(entry in response.body()!!){
-                        //val loc = LatLng(entry.lat, entry.lng)
-                        texto = entry.texto
-                        morada = entry.morada
-                        id_utilizador = entry.id_utilziador
-                        data = entry.data
-                    }
-
-
+                    spinner();
                     textoView.setText(texto)
                     moradaView.setText(morada)
 
                 }
             }
 
-            override fun onFailure(call: Call<List<Locations>>, t: Throwable) {
-                Toast.makeText(applicationContext, "Erro!", Toast.LENGTH_SHORT).show()
+            override fun onFailure(call: Call<Locations>, t: Throwable) {
+                Toast.makeText(applicationContext, R.string.err0, Toast.LENGTH_SHORT).show()
+                Log.e("tag3303", t.toString())
             }
         })
     }
@@ -156,6 +157,26 @@ class EditarMarker : AppCompatActivity(){
                 true
             } else -> super.onOptionsItemSelected(item)
         }
+    }
+
+     fun spinner(){
+        val spin: Spinner = findViewById(R.id.spinner1) as Spinner
+        val adapter: ArrayAdapter<String> =
+            ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, tipos)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spin.setAdapter(adapter)
+        spin.setOnItemSelectedListener(this)
+    }
+
+    override fun onItemSelected(arg0: AdapterView<*>?, arg1: View?, position: Int, id: Long) {
+
+        Toast.makeText(applicationContext, "Selected Tipo: " + tipos[position], Toast.LENGTH_SHORT).show()
+
+        tipo = tipos[position]
+    }
+
+    override fun onNothingSelected(arg0: AdapterView<*>?) {
+        // TODO - Custom Code
     }
 
 }

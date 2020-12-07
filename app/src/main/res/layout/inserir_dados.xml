@@ -48,6 +48,30 @@
         android:inputType="textLongMessage"
          />
 
+    <TextView
+        android:id="@+id/tipoTextView"
+        android:layout_below="@+id/texto"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:labelFor="@+id/titulo"
+        android:text="@string/texto"
+        android:textSize="10pt"
+        android:fontFamily="sans-serif-light"/>
+
+    <Spinner
+        android:id="@+id/spinner12"
+        android:layout_below="@+id/tipoTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/txtVw"
+        android:layout_toRightOf="@+id/txtVw"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"/>
+
 
 
     <RelativeLayout

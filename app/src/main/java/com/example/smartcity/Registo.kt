@@ -11,6 +11,7 @@ import com.example.smartcity.api.EndPoints
 import com.example.smartcity.api.ServiceBuilder
 import com.example.smartcity.api.User
 import org.json.JSONObject
+import org.mindrot.jbcrypt.BCrypt
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -48,7 +49,7 @@ class Registo: AppCompatActivity() {
         if(password.text.toString() == password2.text.toString()){
 
         val request = ServiceBuilder.buildService(EndPoints::class.java)
-        val call = request.registo(username.text.toString(), password.text.toString())
+        val call = request.registo(username.text.toString(), BCrypt.hashpw(password.text.toString(), BCrypt.gensalt()))
 
         call.enqueue(object : Callback<Object> {
 
@@ -58,10 +59,10 @@ class Registo: AppCompatActivity() {
                     val obj = JSONObject(response.body().toString())
 
                     if(obj["message"] == "utilizador_ja_existe"){
-                        username.error = "Username já existente. Escolha outro";
+                        username.error = getString(R.string.usernameExistente)
 
                     }else{
-                        Toast.makeText(applicationContext, "Registo efetuado com sucesso", Toast.LENGTH_LONG).show()
+                        Toast.makeText(applicationContext, R.string.registoSucesso, Toast.LENGTH_LONG).show()
                         onBackPressed()
                     }
                 }
@@ -69,12 +70,12 @@ class Registo: AppCompatActivity() {
 
             override fun onFailure(call: Call<Object>, t: Throwable) {
 
-                username.error = "Username já existente. Escolha outro";
+                username.error = getString(R.string.usernameExistente)
             }
         })
         }else{
-             password.error = "Passwords não coincidem";
-            password2.error = "Passwords nao coincidem";
+             password.error = R.string.passwordNCoin.toString();
+            password2.error = R.string.passwordNCoin.toString();
         }
     }
 }

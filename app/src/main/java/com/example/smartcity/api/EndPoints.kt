@@ -8,20 +8,10 @@ import retrofit2.http.*
 
 interface EndPoints {
 
-   /* @GET("/users/") //devolve array <list> se retornar objeto nao precisamos list
-    fun getUsers(): Call<List<User>>
-
-    @GET("/users/{id}")
-    fun getUserById(@Path("id") id: Int): Call<User>
-
-    @FormUrlEncoded
-    @POST("/posts")
-    fun postTest(@Field("title") first: String?): Call<OutputPost>*/
-
     @FormUrlEncoded
     @POST("smartcity/login")
     fun login(@Field("username") username: String,
-              @Field("password") password: String): Call<Object>
+              @Field("password") password: String): Call<UserLogin>
 
     @FormUrlEncoded
     @POST("smartcity/registo")
@@ -34,23 +24,37 @@ interface EndPoints {
                 @Field ("lat") lat: Float,
                 @Field ("lng") lng: Float,
                 @Field ("morada") morada: String,
-                @Field ("id_utilizador") id_utilizador: Int): Call<Object>
+                @Field ("utilizador_id") utilizador_id: String,
+                @Field ("tipo_id") tipo_id: String): Call<Object>
 
     //@FormUrlEncoded
     @POST("smartcity/markers")
     fun markers(): Call<List<Locations>>
 
     @FormUrlEncoded
+    @POST("smartcity/markersbyiduser")
+    fun markersbyiduser(@Field("id") id: String): Call<String>
+
+    @FormUrlEncoded
     @POST("smartcity/markersbyid")
-    fun getMarkerById(@Field("id") id: Int): Call<List<Locations>>
+    fun getMarkerById(@Field("id") id: Int): Call<Locations>
+
+    @FormUrlEncoded
+    @POST("smartcity/markersbytipo")
+    fun markersbytipo(@Field("tipo_id") tipo_id: String): Call<List<Locations>>
 
     @FormUrlEncoded
     @POST("smartcity/update")
     fun update(@Field("texto") texto: String,
                 @Field ("morada") morada: String,
-                @Field ("id") id: Int): Call<Object>
+                @Field ("id") id: Int,
+                @Field ("tipo_id") tipo_id: String): Call<Object>
 
     @FormUrlEncoded
     @POST("smartcity/delete")
     fun apagarmarker(@Field("id") id: Int): Call<Object>
+
+    @FormUrlEncoded
+    @POST("smartcity/buscaridtipo")
+    fun buscaridtipo(@Field("tipo") tipo: String): Call<Int>
 }
